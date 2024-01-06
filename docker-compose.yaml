@@ -1,7 +1,9 @@
 version: "3"
 services:
   postgres:
-    image: postgres:14-alpine
+    build:
+      context: .
+      dockerfile: ./config/Dockerfile
     restart: always
     ports:
       - "5450:5450"
@@ -10,3 +12,8 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=zilla
       - PGPORT=5450
+    volumes:
+      - "db:/var/lib/postgresql/data"
+
+volumes:
+  db: null
