@@ -1,0 +1,3 @@
+[submodule "zilla-backend"]
+	path = zilla-backend
+	url = git@github.com:urosceh/zilla-backend.git
