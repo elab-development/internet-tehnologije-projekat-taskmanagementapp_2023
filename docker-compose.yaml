@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./config/Dockerfile
+    image: zilla/postgres
+    container_name: zilla-postgres
     restart: always
     ports:
       - "5450:5450"
@@ -12,8 +14,17 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=zilla
       - PGPORT=5450
+  
+  migrations:
+    image: liquibase/liquibase:4.25-alpine
+    container_name: zilla-migrations
+    environment:
+      - LIQUIBASE_COMMAND_CHANGELOG_FILE=dbchangelog.xml
+      - LIQUIBASE_COMMAND_UPDATE_URL=jdbc:postgresql://postgres:5450/zilla
+      - LIQUIBASE_COMMAND_USERNAME=user
+      - LIQUIBASE_COMMAND_PASSWORD=pass
     volumes:
-      - "db:/var/lib/postgresql/data"
-
-volumes:
-  db: null
+      - ./zilla-backend/schema:/liquibase/changelog/
+    command: update
+    depends_on:
+      - postgres
