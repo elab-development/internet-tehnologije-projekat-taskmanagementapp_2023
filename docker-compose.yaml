@@ -15,6 +15,16 @@ services:
       - POSTGRES_DB=zilla
       - PGPORT=5450
   
+  redis:
+    image: redis:6.2-alpine
+    container_name: zilla-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "password"]
+    environment:
+      - REDIS_DATABASES=1
+  
   migrations:
     image: liquibase/liquibase:4.25-alpine
     container_name: zilla-migrations
@@ -23,6 +33,7 @@ services:
       - LIQUIBASE_COMMAND_UPDATE_URL=jdbc:postgresql://postgres:5450/zilla
       - LIQUIBASE_COMMAND_USERNAME=user
       - LIQUIBASE_COMMAND_PASSWORD=pass
+      - LIQUIBASE_LOG_LEVEL=info
     volumes:
       - ./zilla-backend/schema:/liquibase/changelog/
     command: update
