@@ -13,4 +13,4 @@ To run the project (start database, redis, run migrations, start frontend and ba
 make run
 ```
 
-Open frontend app on **localhost:8080**
+Open [localhost:8080](http://localhost:8080) to view it in the browser.
