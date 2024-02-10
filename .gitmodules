@@ -1,3 +1,6 @@
 [submodule "zilla-backend"]
 	path = zilla-backend
 	url = git@github.com:urosceh/zilla-backend.git
+[submodule "zilla-frontend"]
+	path = zilla-frontend
+	url = https://github.com/urosceh/zilla-frontend
