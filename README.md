@@ -12,3 +12,5 @@ To run the project (start database, redis, run migrations, start frontend and ba
 ```bash
 make run
 ```
+
+Open frontend app on **localhost:8080**
